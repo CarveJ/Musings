@@ -1,0 +1,33 @@
+{
+  "name": "musings",
+  "preferGlobal": true,
+  "bin": {
+    "musings": "./command.js"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarveJ/Musings.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CarveJ/Musings/issues"
+  },
+  "homepage": "https://github.com/CarveJ/Musings#readme",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-route": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mongodb": "^3.1.9",
+    "mongoose": "^5.3.11"
+  }
+}
