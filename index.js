@@ -8,14 +8,15 @@ const Router = require('koa-router')
 const router = new Router()
 const bodyparser = require('koa-bodyparser')
 
-const db = require('./db')
+const { getPosts }= require('./db')
 const port = 3000
 
 app.listen(port, ()=>{
   console.log(`listening on port ${port}`)
 })
 
-router.post('/createBlogPost', (ctx) => {
+router.get('/*', async (ctx) => {
+  ctx.body = await getPosts
 })
 
 app.use(bodyparser())

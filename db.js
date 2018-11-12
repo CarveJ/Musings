@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const fs = require('fs')
 
 const options = {
   useNewUrlParser: true
@@ -6,9 +7,7 @@ const options = {
 
 mongoose.connect('mongodb://localhost/musingsDB',options)
 const db = mongoose.connection;
-db.once('open', ()=>{
-  console.log('connected to mongodb')
-})
+
 
 const postSchema = new mongoose.Schema({
   title: String,
@@ -31,12 +30,21 @@ const testSchema = new mongoose.Schema({
 
 const Post = mongoose.model('Post',postSchema)
 
-const addPost = (post) => {
-  const newPost = new Post(post)
-  newPost.date = Date.now()
-  newPost.save().then(()=>{
-    console.log('saved')
-  })
+const addPost = async ( title, fileName, hashtags) => {
+    const filePath = `C:\/Users\/Jamie\/Documents\/MusingsBlogPost\/${fileName}.txt`
+    const anObj = {title,hashtags}
+    fs.readFile(filePath,'utf8', function(error, data) {
+      if (error) {
+        console.error("read error:  " + error.message);
+      } else {
+        anObj.content = data
+        anObj.date = Date.now()
+        const blogUpdate = new Post(anObj)
+        blogUpdate.save().then(() => {
+          console.log('saved')
+        })
+      }
+    });
 }
 
 const getPosts = async () => {
