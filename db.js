@@ -5,7 +5,10 @@ const options = {
 }
 
 mongoose.connect('mongodb://localhost/musingsDB',options)
-.then(()=>console.log('connected to mongoDB'))
+const db = mongoose.connection;
+db.once('open', ()=>{
+  console.log('connected to mongodb')
+})
 
 const postSchema = new mongoose.Schema({
   title: String,
@@ -22,4 +25,23 @@ const postSchema = new mongoose.Schema({
   hashtags: String
 })
 
-const post = mongoose.model('Post',postSchema)
+const testSchema = new mongoose.Schema({
+  name: String
+})
+
+const Post = mongoose.model('Post',postSchema)
+
+const addPost = (post) => {
+  const newPost = new Post(post)
+  newPost.date = Date.now()
+  newPost.save().then(()=>{
+    console.log('saved')
+  })
+}
+
+const getPosts = async () => {
+  const allPosts = await Post.find()
+  return allPosts
+}
+
+module.exports = { addPost, getPosts}
