@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander')
+const fs = require('fs')
 const { addPost, getPosts } = require('./db')
 
 program
@@ -11,9 +12,8 @@ program
   .command('addPost <title> <content> <hashtags>')
   .alias('a')
   .description('add a post to the Blog')
-  .action((title,content,hashtags)=>{
-    console.log('executing action')
-    addPost({title,content,hashtags})
+  .action( ( title,content,hashtags ) => {
+    addPost(title,content,hashtags)
   })
 
 program
